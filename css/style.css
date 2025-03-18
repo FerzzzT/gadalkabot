@@ -124,7 +124,7 @@ h1 {
 
 @media (max-width: 480px) {
     .cards-container {
-        gap: 2px;
+        gap: 5px;
         max-width: 300px; /* Уменьшено с 450px до 300px для мобильных */
     }
 }
