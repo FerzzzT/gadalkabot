@@ -1,14 +1,18 @@
-// Инициализация Telegram Web App
+// Получаем параметры из initData
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
-// Получаем параметры из initData
-if (window.Telegram.WebApp.initDataUnsafe) {
+let event = null;
+
+try {
     const initData = window.Telegram.WebApp.initDataUnsafe;
-    if (initData.user && initData.start_param) {
-        const startParam = initData.start_param;
-        console.log("Start param:", startParam);
+    if (initData.start_param) {
+        const params = JSON.parse(decodeURIComponent(initData.start_param));
+        event = params.event; // Получаем "question"
+        console.log("Event:", event);
     }
+} catch (e) {
+    console.error("Ошибка:", e);
 }
 
 
