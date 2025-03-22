@@ -2,8 +2,10 @@
 window.Telegram.WebApp.ready(); // Сообщаем Telegram, что приложение готово
 window.Telegram.WebApp.expand(); // Растягиваем приложение на весь экран
 // Получаем параметры из initData
-const urlParams = new URLSearchParams(window.location.search);
-const event = urlParams.get("event");
+const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+const event = initDataUnsafe?.event || null;
+console.log("initDataUnsafe:", window.Telegram.WebApp.initDataUnsafe);
+
 
 // Список карт
 const cardImages = {
