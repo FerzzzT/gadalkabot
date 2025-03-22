@@ -3,10 +3,12 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
 // Получаем параметры из initData
-const initData = window.Telegram.WebApp.initDataUnsafe;
-const event = initData?.start_param || null; // Используем start_param, если есть
+const initData = window.Telegram.WebApp.initData;
+// или в виде объекта
+const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
 
-console.log("Полученный event:", event);
+console.log(initDataUnsafe);
+
 
 // Список карт
 const cardImages = {
