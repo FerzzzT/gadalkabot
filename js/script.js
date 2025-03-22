@@ -1,20 +1,29 @@
-// Получаем параметры из initData
+// Инициализация Telegram WebApp
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
+// Переменная для хранения event
 let event = null;
 
-try {
-    const initData = window.Telegram.WebApp.initDataUnsafe;
-    if (initData.start_param) {
-        const params = JSON.parse(decodeURIComponent(initData.start_param));
-        event = params.event; // Получаем "question"
-        console.log("Event:", event);
-    }
-} catch (e) {
-    console.error("Ошибка:", e);
-}
+// Получаем параметры из initData
+const initData = window.Telegram.WebApp.initDataUnsafe || {};
+console.log("initData:", initData);
 
+if (initData.start_param) {
+    try {
+        const decodedParams = decodeURIComponent(initData.start_param);
+        const params = JSON.parse(decodedParams);
+        event = params.event || null; // Получаем "question" или null
+        console.log("Decoded params:", params);
+        console.log("Event:", event);
+    } catch (e) {
+        console.error("Ошибка парсинга start_param:", e);
+        event = "question"; // Значение по умолчанию, если парсинг не удался
+    }
+} else {
+    console.log("start_param отсутствует");
+    event = "question"; // Значение по умолчанию, если параметр не передан
+}
 
 // Список карт
 const cardImages = {
@@ -79,12 +88,12 @@ const cardImages = {
     '9 Жезлов': 'css/cards/9g.jpg',
     '10 Жезлов': 'css/cards/10g.jpg',
     'Королева Жезлов': 'css/cards/qg.jpg',
-    'Рыцарь Жезлов': 'css/cards/kw.jpg',  // ✅ Исправлено
+    'Рыцарь Жезлов': 'css/cards/kw.jpg',
     'Паж Жезлов': 'css/cards/pw.jpg',
     'Король Жезлов': 'css/cards/king_g.jpg',
 };
 
-// Основная логика
+// Основная логика: выбор случайных карт
 const shuffledCards = Object.entries(cardImages)
     .sort(() => 0.5 - Math.random())
     .slice(0, 9); // Берем 9 случайных карт
@@ -110,7 +119,10 @@ if (!cardsContainer) {
                 this.classList.add("flipped", "selected");
                 this.classList.remove("cursor-pointer");
             }
-            document.getElementById("continueBtn").classList.toggle("hidden", selectedCards.length !== 3);
+            const continueBtn = document.getElementById("continueBtn");
+            if (continueBtn) {
+                continueBtn.classList.toggle("hidden", selectedCards.length !== 3);
+            }
         });
 
         cardsContainer.appendChild(card);
@@ -121,7 +133,7 @@ if (!cardsContainer) {
 const continueBtn = document.getElementById("continueBtn");
 if (continueBtn) {
     continueBtn.addEventListener("click", function() {
-        let data = { cards: selectedCardNames, event: event };
+        const data = { cards: selectedCardNames, event: event };
         console.log("Отправляем в бота:", data);
         window.Telegram.WebApp.sendData(JSON.stringify(data));
     });
