@@ -1,6 +1,9 @@
 // Инициализация Telegram Web App
 window.Telegram.WebApp.ready(); // Сообщаем Telegram, что приложение готово
 window.Telegram.WebApp.expand(); // Растягиваем приложение на весь экран
+// Получаем параметры из initData
+const urlParams = new URLSearchParams(window.location.search);
+const event = urlParams.get("event");
 
 // Список карт
 const cardImages = {
@@ -107,7 +110,7 @@ if (!cardsContainer) {
 const continueBtn = document.getElementById("continueBtn");
 if (continueBtn) {
     continueBtn.addEventListener("click", function() {
-        let data = { cards: selectedCardNames };
+        let data = { cards: selectedCardNames, event:event};
         window.Telegram.WebApp.sendData(JSON.stringify(data));
     });
 } else {
