@@ -1,3 +1,8 @@
+// Инициализация Telegram WebApp
+window.Telegram.WebApp.ready();
+window.Telegram.WebApp.expand();
+
+
 let event = "question"; // Значение по умолчанию
 if (initData.start_param) {
     try {
