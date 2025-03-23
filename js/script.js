@@ -3,26 +3,24 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
 // Переменная для хранения event
-let event = null;
-
-// Получаем параметры из initData
-const initData = window.Telegram.WebApp.initDataUnsafe || {};
-console.log("initData:", initData);
-
+let event = "question"; // Значение по умолчанию
 if (initData.start_param) {
     try {
-        const decodedParams = decodeURIComponent(initData.start_param);
-        const params = JSON.parse(decodedParams);
-        event = params.event || null; // Получаем "question" или null
-        console.log("Decoded params:", params);
-        console.log("Event:", event);
+        let encoded = initData.start_param;
+        encoded = encoded.replace(/-/g, '+').replace(/_/g, '/');
+        while (encoded.length % 4 !== 0) {
+            encoded += '=';
+        }
+        const decoded = atob(encoded);
+        const params = JSON.parse(decoded);
+        event = params.event || "question";
     } catch (e) {
         console.error("Ошибка парсинга start_param:", e);
-        event = "question"; // Значение по умолчанию, если парсинг не удался
+        // event остается "question"
     }
 } else {
     console.log("start_param отсутствует");
-    event = "question"; // Значение по умолчанию, если параметр не передан
+    // event остается "question"
 }
 
 // Список карт
