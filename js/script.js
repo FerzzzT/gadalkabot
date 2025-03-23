@@ -2,28 +2,10 @@
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
-// Переменная для хранения event
-let event = null;
+// Инициализация event
+let event = initData.start_param || "question";
+console.log("Event:", event);
 
-// Получаем параметры из initData
-const initData = window.Telegram.WebApp.initDataUnsafe || {};
-console.log("initData:", initData);
-
-if (initData.start_param) {
-    try {
-        const decodedParams = decodeURIComponent(initData.start_param);
-        const params = JSON.parse(decodedParams);
-        event = params.event || null; // Получаем "question" или null
-        console.log("Decoded params:", params);
-        alert(event);
-    } catch (e) {
-        console.error("Ошибка парсинга start_param:", e);
-        event = "question"; // Значение по умолчанию, если парсинг не удался
-    }
-} else {
-    console.log("start_param отсутствует");
-    event = "question"; // Значение по умолчанию, если параметр не передан
-}
 
 // Список карт
 const cardImages = {
