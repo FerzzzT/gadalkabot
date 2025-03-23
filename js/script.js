@@ -15,7 +15,7 @@ if (initData.start_param) {
         const params = JSON.parse(decodedParams);
         event = params.event || null; // Получаем "question" или null
         console.log("Decoded params:", params);
-        console.log("Event:", event);
+        alert(event);
     } catch (e) {
         console.error("Ошибка парсинга start_param:", e);
         event = "question"; // Значение по умолчанию, если парсинг не удался
