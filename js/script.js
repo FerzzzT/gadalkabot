@@ -1,18 +1,22 @@
-// Инициализация Telegram WebApp
-window.Telegram.WebApp.ready();
-window.Telegram.WebApp.expand();
-
-// Переменная для хранения event
-let event = null;
-
-// Получаем параметры из initData
-let encoded = initData.start_param;
-encoded = encoded.replace(/-/g, '+').replace(/_/g, '/');
-while (encoded.length % 4 !== 0) {
-    encoded += '=';
+let event = "question"; // Значение по умолчанию
+if (initData.start_param) {
+    try {
+        let encoded = initData.start_param;
+        encoded = encoded.replace(/-/g, '+').replace(/_/g, '/');
+        while (encoded.length % 4 !== 0) {
+            encoded += '=';
+        }
+        const decoded = atob(encoded);
+        const params = JSON.parse(decoded);
+        event = params.event || "question";
+    } catch (e) {
+        console.error("Ошибка парсинга start_param:", e);
+        // event остается "question"
+    }
+} else {
+    console.log("start_param отсутствует");
+    // event остается "question"
 }
-const decoded = atob(encoded);
-const params = JSON.parse(decoded);
 // Список карт
 const cardImages = {
     'Колесница': 'css/cards/the_chariot.jpg',
