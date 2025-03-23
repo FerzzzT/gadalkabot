@@ -6,25 +6,13 @@ window.Telegram.WebApp.expand();
 let event = null;
 
 // Получаем параметры из initData
-const initData = window.Telegram.WebApp.initDataUnsafe || {};
-console.log("initData:", initData);
-
-if (initData.start_param) {
-    try {
-        const encoded = initData.start_param;
-        const decoded = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
-        const params = JSON.parse(decoded);
-        event = params.event || null;
-        console.log("Decoded params:", params);
-        console.log("Event:", event);
-    } catch (e) {
-        console.error("Ошибка парсинга start_param:", e);
-        event = "question"; // Значение по умолчанию
-    }
-} else {
-    console.log("start_param отсутствует");
-    event = "question"; // Значение по умолчанию
+let encoded = initData.start_param;
+encoded = encoded.replace(/-/g, '+').replace(/_/g, '/');
+while (encoded.length % 4 !== 0) {
+    encoded += '=';
 }
+const decoded = atob(encoded);
+const params = JSON.parse(decoded);
 // Список карт
 const cardImages = {
     'Колесница': 'css/cards/the_chariot.jpg',
