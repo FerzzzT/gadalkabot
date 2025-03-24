@@ -3,7 +3,11 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
 // Инициализация event
-let event = 'question'
+let initData = tg.initData || '';
+let initDataUnsafe = tg.initDataUnsafe || {};
+
+// Получаем дату из start_param
+let date = initDataUnsafe.start_param || 'Дата не передана';
 
 
 // Список карт
