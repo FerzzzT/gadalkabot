@@ -3,7 +3,7 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
 // Инициализация event
-let event = initData.start_param || "question";
+let event = initData.start_param;
 console.log("Event:", event);
 
 
