@@ -1,7 +1,7 @@
 // Инициализация Telegram WebApp
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
-
+let tg = window.Telegram.WebApp;
 // Инициализация event
 let initData = tg.initData || '';
 let initDataUnsafe = tg.initDataUnsafe || {};
