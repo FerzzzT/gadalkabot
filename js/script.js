@@ -3,7 +3,8 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 
 // Инициализация event
-let event = 'question'
+let event = initData.start_param || "question";
+console.log("Event:", event);
 
 
 // Список карт
