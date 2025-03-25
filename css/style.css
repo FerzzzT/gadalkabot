@@ -63,6 +63,7 @@ h1 {
 .card-back {
     background-image: url('textures/card_back.jpg');
     transform: rotateY(0deg);
+
 }
 
 .card-placeholder {
@@ -80,7 +81,7 @@ h1 {
 
 .selected {
     box-shadow: 0 0 20px 10px rgba(255, 131, 253, 0.8);
-    border: 2px solid rgba(255,255,255, 0.9);
+    border: 1px solid rgba(255,255,255, 0.9);
 }
 
 .overlay {
