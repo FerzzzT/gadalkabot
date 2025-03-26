@@ -100,7 +100,6 @@ h1 {
 
 .selected {
     box-shadow: 0 0 20px 10px RGBA(255,131,253,0.8);
-    border: 1px solid RGBA(255,255,255,0.9);
 }
 
 .overlay {
@@ -156,7 +155,5 @@ h1 {
         box-shadow: 0 0 10px 3px RGBA(255, 131, 253, 0.6);
     }
 
-    .card-placeholder::after {
-        border-width: 1px;
-    }
+
 }
