@@ -39,7 +39,7 @@ h1 {
     position: relative;
     perspective: 1000px;
     width: 100%;
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 1.5 / 2.5;
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
@@ -77,12 +77,17 @@ h1 {
 .card-back {
     background-image: url('textures/card_back.png');
     transform: rotateY(0deg);
+    background-size: 100% 100%; /* Изображение растягивается на весь контейнер */
 
 }
 
 .card-placeholder {
     transform: rotateY(180deg);
-    background-color: #fff;
+    background-size: 100% 100%; /* Изображение растягивается на весь контейнер */
+    background-position: center;
+    background-color: white;
+    background-repeat: no-repeat;
+
 }
 
 .flipped .card-back {
