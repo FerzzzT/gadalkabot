@@ -1,3 +1,6 @@
+
+
+
 // Инициализация Telegram WebApp
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
@@ -8,6 +11,7 @@ let initDataUnsafe = tg.initDataUnsafe || {};
 
 // Получаем дату из start_param
 let date = initDataUnsafe.start_param || 'Дата не передана';
+
 
 
 // Список карт
@@ -77,6 +81,7 @@ const cardImages = {
     'Паж Жезлов': 'css/cards/pw.jpg',
     'Король Жезлов': 'css/cards/king_g.jpg',
 };
+// Функция для создания звездопада
 
 // Основная логика: выбор случайных карт
 const shuffledCards = Object.entries(cardImages)
