@@ -6,11 +6,22 @@ window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
 let tg = window.Telegram.WebApp;
 // Инициализация event
-let initData = tg.initData || '';
-let initDataUnsafe = tg.initDataUnsafe || {};
+// Функция для получения параметра start_param из initData
+function getStartParam() {
+    const urlParams = new URLSearchParams(window.Telegram.WebApp.initData);
+    return urlParams.get('start_param');
+}
 
-// Получаем дату из start_param
-let date = initDataUnsafe.start_param || 'Дата не передана';
+// Получаем параметр и выводим его в alert
+window.onload = function () {
+    const startParam = getStartParam();
+    if (startParam) {
+        alert(`Start Param: ${startParam}`);
+    } else {
+        alert('Start Param not found');
+    }
+};
+
 
 
 
