@@ -104,104 +104,56 @@ const cardImages = {
 
 window.onload = function () {
     const startParam = getStartParam();
-    const cardsContainer = document.getElementById("cardsContainer");
-    let selectedCard = null;
-    let selectedCardName = null;
-
-    if (!cardsContainer) {
-        console.error("Элемент с id='cardsContainer' не найден!");
-        return;
-    }
-
-    // Проверяем startParam
-    if (startParam === 'card') {
-        // Выбираем 3 случайные карты
-        const shuffledCards = Object.entries(cardImages)
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 3);
-
-        shuffledCards.forEach(([cardName, imagePath]) => {
-            const card = document.createElement("div");
-            card.classList.add("tarot-card", "cursor-pointer");
-            card.innerHTML = `
-                <div class="card-back"></div>
-                <div class="card-placeholder" style="background-image: url('${imagePath}')"></div>`;
-
-            card.addEventListener("click", function () {
-                // Если уже выбрана карта, убираем выделение с предыдущей
-                if (selectedCard && selectedCard !== this) {
-                    selectedCard.classList.remove("flipped", "selected");
-                }
-
-                // Если карта не была выбрана ранее
-                if (!this.classList.contains("selected")) {
-                    this.classList.add("flipped", "selected");
-                    this.classList.remove("cursor-pointer");
-                    selectedCard = this;
-                    selectedCardName = cardName;
-                } else { // Если кликнули на уже выбранную карту
-                    this.classList.remove("flipped", "selected");
-                    this.classList.add("cursor-pointer");
-                    selectedCard = null;
-                    selectedCardName = null;
-                }
-
-                const continueBtn = document.getElementById("continueBtn");
-                if (continueBtn) {
-                    continueBtn.classList.toggle("hidden", !selectedCard);
-                }
-            });
-
-            cardsContainer.appendChild(card);
-        });
+    if (startParam) {
+        alert(`Start Param: ${startParam}`);
     } else {
-        // Оригинальная логика с 9 картами остается без изменений
-        const shuffledCards = Object.entries(cardImages)
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 9);
-
-        let selectedCards = [];
-        let selectedCardNames = [];
-
-        shuffledCards.forEach(([cardName, imagePath]) => {
-            const card = document.createElement("div");
-            card.classList.add("tarot-card", "cursor-pointer");
-            card.innerHTML = `
-                <div class="card-back"></div>
-                <div class="card-placeholder" style="background-image: url('${imagePath}')"></div>`;
-
-            card.addEventListener("click", function () {
-                if (!selectedCards.includes(this) && selectedCards.length < 3) {
-                    selectedCards.push(this);
-                    selectedCardNames.push(cardName);
-                    this.classList.add("flipped", "selected");
-                    this.classList.remove("cursor-pointer");
-                }
-                const continueBtn = document.getElementById("continueBtn");
-                if (continueBtn) {
-                    continueBtn.classList.toggle("hidden", selectedCards.length !== 3);
-                }
-            });
-
-            cardsContainer.appendChild(card);
-        });
-    }
-
-    const continueBtn = document.getElementById("continueBtn");
-    if (continueBtn) {
-        continueBtn.addEventListener("click", function () {
-            let data = {};
-
-            if (startParam === 'card') {
-                data = {card: selectedCardName || "Не выбрано"};
-            } else {
-                data = {cards: selectedCardNames.length > 0 ? selectedCardNames : ["Не выбрано"]};
-            }
-
-            console.log("Отправляем в бота:", data);
-            window.Telegram.WebApp.sendData(JSON.stringify(data));
-        });
-    } else {
-        console.error("Элемент с id='continueBtn' не найден!");
+        alert('Start Param not found');
     }
 };
+// Основная логика: выбор случайных карт
+const shuffledCards = Object.entries(cardImages)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 9); // Берем 9 случайных карт
+
+const cardsContainer = document.getElementById("cardsContainer");
+let selectedCards = [];
+let selectedCardNames = [];
+
+if (!cardsContainer) {
+    console.error("Элемент с id='cardsContainer' не найден!");
+} else {
+    shuffledCards.forEach(([cardName, imagePath]) => {
+        const card = document.createElement("div");
+        card.classList.add("tarot-card", "cursor-pointer");
+        card.innerHTML = `
+            <div class="card-back"></div>
+            <div class="card-placeholder" style="background-image: url('${imagePath}')"></div>`;
+
+        card.addEventListener("click", function () {
+            if (!selectedCards.includes(this) && selectedCards.length < 3) {
+                selectedCards.push(this);
+                selectedCardNames.push(cardName);
+                this.classList.add("flipped", "selected");
+                this.classList.remove("cursor-pointer");
+            }
+            const continueBtn = document.getElementById("continueBtn");
+            if (continueBtn) {
+                continueBtn.classList.toggle("hidden", selectedCards.length !== 3);
+            }
+        });
+
+        cardsContainer.appendChild(card);
+    });
+}
+
+// Обработчик кнопки "Продолжить" для отправки данных
+const continueBtn = document.getElementById("continueBtn");
+if (continueBtn) {
+    continueBtn.addEventListener("click", function() {
+        const data = { cards: selectedCardNames, event: date };
+        console.log("Отправляем в бота:", data);
+        window.Telegram.WebApp.sendData(JSON.stringify(data));
+    });
+} else {
+    console.error("Элемент с id='continueBtn' не найден!");
+}
