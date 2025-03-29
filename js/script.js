@@ -150,7 +150,7 @@ if (!cardsContainer) {
 const continueBtn = document.getElementById("continueBtn");
 if (continueBtn) {
     continueBtn.addEventListener("click", function() {
-        const data = { cards: selectedCardNames, event: date };
+        const data = { cards: selectedCardNames};
         console.log("Отправляем в бота:", data);
         window.Telegram.WebApp.sendData(JSON.stringify(data));
     });
