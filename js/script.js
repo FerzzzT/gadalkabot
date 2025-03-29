@@ -187,13 +187,17 @@ window.onload = function () {
         });
     }
 
-    // Обработчик кнопки "Продолжить"
     const continueBtn = document.getElementById("continueBtn");
     if (continueBtn) {
-        continueBtn.addEventListener("click", function() {
-            const data = startParam === 'card' ?
-                { card: selectedCardName } :
-                { cards: selectedCardNames };
+        continueBtn.addEventListener("click", function () {
+            let data = {};
+
+            if (startParam === 'card') {
+                data = {card: selectedCardName || "Не выбрано"};
+            } else {
+                data = {cards: selectedCardNames.length > 0 ? selectedCardNames : ["Не выбрано"]};
+            }
+
             console.log("Отправляем в бота:", data);
             window.Telegram.WebApp.sendData(JSON.stringify(data));
         });
