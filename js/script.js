@@ -146,7 +146,7 @@ if (!cardsContainer) {
     });
 }
 
-// Обработчик кнопки "Продолжить" для отправки данных
+
 const continueBtn = document.getElementById("continueBtn");
 if (continueBtn) {
     continueBtn.addEventListener("click", function() {
