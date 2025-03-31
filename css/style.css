@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -16,15 +15,14 @@ body {
 }
 
 h1 {
-    font-family: "Montserrat", sans-serif;!important
+    font-family: "Gilroy", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
-    font-size: clamp(1.1rem, 3.1vh, 3.1rem) !important; /* Уменьшен размер заголовка */
-    text-shadow: 2px 2px 10px rgba(255, 131, 253, 0.8) !important;
-    color: white !important;
-    text-align: center !important;
-    line-height: 1.2 !important;
+    font-size: clamp(2rem, 4vh, 4rem) !important;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
     margin-bottom: 2rem !important;
 }
 
@@ -32,9 +30,9 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, auto);
-    gap: 16px; /* Расстояние между картами */
+    gap: 12px;
     width: 100%;
-    max-width: 560px; /* Уменьшено с 600px до 450px для меньших карт */
+    max-width: 450px;
     padding: 0 1rem;
 }
 
@@ -44,7 +42,7 @@ h1 {
     width: 100%;
     aspect-ratio: 1.5 / 2.5;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
@@ -54,7 +52,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 20px RGBA(255,131,253,0.8);
+    box-shadow: 0 0 15px rgba(255, 131, 253, 0.8);
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -63,14 +61,15 @@ h1 {
     opacity: 1;
 }
 
-.card-back, .card-placeholder {
+.card-back,
+.card-placeholder {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 8px;
+    border-radius: 6px;
     transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
     background-size: contain;
     background-position: center;
@@ -80,17 +79,15 @@ h1 {
 .card-back {
     background-image: url('textures/card_back.png');
     transform: rotateY(0deg);
-    background-size: 100% 100%; /* Изображение растягивается на весь контейнер */
-
+    background-size: 100% 100%;
 }
 
 .card-placeholder {
     transform: rotateY(180deg);
-    background-size: 100% 100%; /* Изображение растягивается на весь контейнер */
+    background-size: 100% 100%;
     background-position: center;
     background-color: white;
     background-repeat: no-repeat;
-
 }
 
 .flipped .card-back {
@@ -102,7 +99,7 @@ h1 {
 }
 
 .selected {
-    box-shadow: 0 0 20px 10px RGBA(255,131,253,0.8);
+    box-shadow: 0 0 15px 8px rgba(255, 131, 253, 0.8);
 }
 
 .overlay {
@@ -124,10 +121,10 @@ h1 {
     color: white;
     padding: 0.75rem 2rem;
     border-radius: 12px;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-family: "Montserrat", sans-serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-family: "Gilroy", sans-serif;
     font-optical-sizing: auto;
-    font-weight:700;
+    font-weight: 900;
     font-style: normal;
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
@@ -145,18 +142,26 @@ h1 {
     display: none;
 }
 
-
+@font-face {
+    font-family: "Gilroy";
+    src: url("../font/ofont.ru_Gilroy.ttf");
+}
 
 @media (max-width: 480px) {
     .cards-container {
-
-        gap: 10px;
-        max-width: 300px;
+        gap: 8px;
+        max-width: 240px;
     }
 
     .tarot-card.selected {
-        box-shadow: 0 0 10px 3px RGBA(255, 131, 253, 0.6);
+        box-shadow: 0 0 8px 2px rgba(255, 131, 253, 0.6);
     }
 
+    h1 {
+        font-size: clamp(3rem, 7vh, 7rem); /* Уменьшен для мобильных с 4rem/9vh/9rem */
+    }
 
+    #continueBtn {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+    }
 }
