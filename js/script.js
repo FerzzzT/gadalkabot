@@ -4,15 +4,6 @@
 // Инициализация Telegram WebApp
 window.Telegram.WebApp.ready();
 window.Telegram.WebApp.expand();
-let tg = window.Telegram.WebApp;
-
-// Функция для получения параметра start_param
-function getStartParam() {
-    const urlParams = new URLSearchParams(window.Telegram.WebApp.initData);
-    return urlParams.get('start_param');
-}
-
-// Получаем параметр и выводим его в alert
 
 
 
@@ -100,16 +91,8 @@ const cardImages = {
     'Рыцарь Кубков': 'css/cards/kc.png',
     'Паж Кубков': 'css/cards/pc.png',
 };
-// Функция для создания звездопада
 
-window.onload = function () {
-    const startParam = getStartParam();
-    if (startParam) {
-        alert(`Start Param: ${startParam}`);
-    } else {
-        alert('Start Param not found');
-    }
-};
+
 // Основная логика: выбор случайных карт
 const shuffledCards = Object.entries(cardImages)
     .sort(() => 0.5 - Math.random())
